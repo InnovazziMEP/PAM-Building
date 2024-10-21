@@ -1,25 +1,5 @@
 # -*- coding: utf-8 -*-
 __title__ = "Rotate\nAccess Doors"
-__author__ = "PAM Building UK"
-__doc__ = """Version = 1.0
-Date    = 01.08.2024
-__________________________________________________________________
-Compatibility:
-
-Revit 2023+
-__________________________________________________________________
-Description:
-
-Rotate access doors around Z axis.
-__________________________________________________________________
-How-to:
-
--> Click the button
--> Select the access door(s) that you want to rotate and press 'Finish'
--> Input degrees
--> Click 'Rotate' button
-__________________________________________________________________
-"""
 
 #Add imports
 import os
