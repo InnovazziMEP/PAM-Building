@@ -1,24 +1,5 @@
 # -*- coding: utf-8 -*-
 __title__ = 'Batch Save\nFamilies'
-__author__ = "PAM Building UK"
-__doc__ = """Version = 1.0
-Date    = 01.08.2024
-__________________________________________________________________
-Compatibility:
-
-Revit 2023+
-__________________________________________________________________
-Description:
-
-Batch save families from project into a folder
-__________________________________________________________________
-How-to:
-
--> Click the button
--> Select the families you wish to save and click 'Save'
--> Select folder location
-__________________________________________________________________
-"""
 
 import os
 import clr
