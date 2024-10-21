@@ -1,0 +1,19 @@
+title:
+  en_us: Align Tags
+
+tooltip:
+  en_us: Arranges tags vertically by moving, aligning and distributing them evenly on the vertical axis
+
+context:
+  any:
+  - active-rcp-plan 
+  - active-floor-plan
+  - active-structural-plan
+  - active-area-plan
+
+# bundle author
+author: PAM Building UK
+
+# minimium supported Revit version
+min_revit_version: 2022
+

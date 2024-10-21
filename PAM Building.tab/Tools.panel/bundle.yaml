@@ -1,0 +1,17 @@
+title:
+  en_us: Tools
+
+layout:
+  - Select
+  - Sum Total Length
+  - Align Tags
+  - Find PAM Products
+  - Set Reference Level
+  - Place Access Doors
+  - Remove Access Doors
+  - Rotate Access Doors
+
+background:
+  panel: '#eeeeee'
+  title: '#e8e6e6' 
+  slideout: '#eeeeee'

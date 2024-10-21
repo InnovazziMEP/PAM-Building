@@ -1,0 +1,15 @@
+{
+    "builtin": "False",
+    "default_enabled": "True",
+    "type": "extension",
+    "rocket_mode_compatible": "False",
+    "name": "PAM Building",
+    "description": "Collection of tools developed by PAM Building UK for public health engineering",
+    "author": "Innovazzi Engineering",
+    "author_profile": "https://github.com/InnovazziMEP",
+    "url": "https://github.com/InnovazziMEP/PAM-Building.git",
+    "website": "www.pambuilding.co.uk",
+    "image": "",
+    "dependencies": []
+}
+
