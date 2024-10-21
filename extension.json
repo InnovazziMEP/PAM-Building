@@ -2,7 +2,7 @@
     "builtin": "False",
     "default_enabled": "True",
     "type": "extension",
-    "rocket_mode_compatible": "False",
+    "rocket_mode_compatible": "True",
     "name": "PAM Building",
     "description": "Collection of tools developed by PAM Building UK for public health engineering",
     "author": "Innovazzi Engineering",
