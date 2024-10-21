@@ -231,7 +231,7 @@ def show_window(selected_elements):
 
     def on_image_click(sender, event_args):
         """Handle the image click event to open a URL."""
-        url = "https://www.innovazzi.com/"
+        url = "https://www.pambuilding.co.uk"
         webbrowser.open(url)
 
     def header_drag(sender, event_args):

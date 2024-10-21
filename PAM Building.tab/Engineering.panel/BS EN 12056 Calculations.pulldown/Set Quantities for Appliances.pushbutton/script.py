@@ -157,11 +157,10 @@ def show_window(selected_elements):
         continue_selection = forms.alert("Do you want to select more elements and set appliances?", title="Continue?", yes=True, no=True)
         if continue_selection:  # If the user selects 'Yes'
             # Restart the main function to allow for another selection
-            main()  
-        # If 'No', nothing further needs to be done; the UI has already been closed.
+            main()
 
     def on_image_click(sender, event_args):
-        url = "https://www.innovazzi.com/"
+        url = "https://www.pambuilding.co.uk"
         webbrowser.open(url)
 
     def header_drag(sender, event_args):
