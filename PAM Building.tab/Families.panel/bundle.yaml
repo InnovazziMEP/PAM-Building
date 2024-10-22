@@ -3,4 +3,9 @@ title:
 layout:
   - Save
   - Load
-  
+
+background:
+  panel: '#EEEEEE'
+  title: '#D9C5A1'
+  slideout: '#EEEEEE'
+

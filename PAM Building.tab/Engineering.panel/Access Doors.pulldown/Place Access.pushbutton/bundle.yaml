@@ -1,8 +1,8 @@
 title:
-  en_us: Rotate Access Doors
+  en_us: Place Access
 
 tooltip:
-  en_us: Rotates access doors around Z axis
+  en_us: Places access doors at specified elevation above selected levels
 
 context:
   any:
@@ -16,4 +16,3 @@ author: PAM Building UK
 
 # minimium supported Revit version
 min_revit_version: 2022
-

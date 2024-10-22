@@ -1,8 +1,8 @@
 title:
-  en_us: Place Access Doors
+  en_us: Remove Access
 
 tooltip:
-  en_us: Places access doors at specified elevation above selected levels
+  en_us: Removes selected access doors and joins pipes together
 
 context:
   any:

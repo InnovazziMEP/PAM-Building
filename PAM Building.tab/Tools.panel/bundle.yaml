@@ -7,11 +7,8 @@ layout:
   - Align Tags
   - Find PAM Products
   - Set Reference Level
-  - Place Access Doors
-  - Remove Access Doors
-  - Rotate Access Doors
 
 background:
-  panel: '#eeeeee'
-  title: '#e8e6e6' 
-  slideout: '#eeeeee'
+  panel: '#EEEEEE'
+  title: '#CFDDE6' 
+  slideout: '#EEEEEE'
