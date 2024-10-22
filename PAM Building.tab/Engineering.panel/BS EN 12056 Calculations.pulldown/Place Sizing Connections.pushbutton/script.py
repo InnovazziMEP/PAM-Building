@@ -186,7 +186,7 @@ for family_symbol in collector:
 if not len(matching_families) > 0:
     forms.alert(
         "No suitable family found in your project.",
-        title='Load SGPAMUK_Foul Drainage_Sizing Connection'
+        title='Load SGPAMUK_ES_EN 12056 Sizing Connection'
     )
     script.exit()
 
@@ -351,7 +351,7 @@ def select_elements():
                             tg.Start()
 
                             # Transaction to add rules to routing preferences
-                            with Transaction(doc, "Add SGPAMUK_Foul Drainage_Sizing Connection to Routing Preferences") as t1:
+                            with Transaction(doc, "Add SGPAMUK_ES_EN 12056 Sizing Connection to Routing Preferences") as t1:
                                 t1.Start()
 
                                 try:
@@ -441,7 +441,7 @@ def select_elements():
                                             raise
 
                                 # Transaction to remove the rules added in t1
-                                with Transaction(doc, "Remove SGPAMUK_Foul Drainage_Sizing Connection from Routing Preferences") as t3:
+                                with Transaction(doc, "Remove SGPAMUK_ES_EN 12056 Sizing Connection from Routing Preferences") as t3:
                                     t3.Start()
                                     try:
                                         # Get unique pipe types from selected pipes again
