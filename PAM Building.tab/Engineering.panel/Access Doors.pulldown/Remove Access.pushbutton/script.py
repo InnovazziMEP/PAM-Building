@@ -10,13 +10,12 @@ from Autodesk.Revit.DB import *
 from Autodesk.Revit.DB.Plumbing import Pipe
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.Exceptions import OperationCanceledException
-from pyrevit import revit, forms, script
-from System.Collections.Generic import List
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> VARIABLES
+from pyrevit import revit, forms
+
+# Variables
 uidoc = revit.uidoc
 doc = revit.doc
-output = script.get_output()
 
 # Additional variables
 connected_pipes = set()  # Set to keep track of pipes being connected
