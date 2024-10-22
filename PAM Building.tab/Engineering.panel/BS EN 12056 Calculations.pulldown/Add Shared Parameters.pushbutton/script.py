@@ -169,7 +169,7 @@ if selected_parameter_group:
 
     try:
         # 🔓 Start Transaction
-        t = Transaction(doc, 'Add Shared Parameters')
+        t = Transaction(doc, __title__)
         t.Start()
 
         for param_name, param_type, param_group in parameters_to_add:

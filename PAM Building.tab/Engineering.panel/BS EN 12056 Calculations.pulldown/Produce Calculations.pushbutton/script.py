@@ -30,8 +30,8 @@ from pyrevit.forms import WPFWindow
 
 # 📦 Variables
 app = __revit__.Application
-doc = __revit__.ActiveUIDocument.Document 
-uidoc = __revit__.ActiveUIDocument
+uidoc = revit.uidoc
+doc = revit.doc
 
 
 operation_cancelled = False  # Initialize cancellation flag
