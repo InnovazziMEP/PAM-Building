@@ -430,7 +430,7 @@ system_name = selected_piping_system.get_Parameter(BuiltInParameter.RBS_SYSTEM_N
 
 # Main logic
 # 🔓 Start a transaction group
-with TransactionGroup(doc, 'EN 12056-2 Calculations') as maintg:
+with TransactionGroup(doc, __title__) as maintg:
     maintg.Start()
     
     # 🔓 Start a transaction for first sub-group
