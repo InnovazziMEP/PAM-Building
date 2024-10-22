@@ -7,15 +7,11 @@ import math
 import clr
 import webbrowser
 
-# Add references to the necessary assemblies and try again
+# Add references to the necessary assemblies
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
-import System
-#from System.Windows import Application, Window
 from System.Windows.Controls import Button, TextBox, Image
-#from System.Windows.Media.Imaging import BitmapImage
-#from System import Uri, UriKind
 from System.Windows.Input import MouseButtonState
 
 from Autodesk.Revit.UI.Selection import ISelectionFilter, ObjectType
@@ -24,7 +20,7 @@ from Autodesk.Revit.Exceptions import OperationCanceledException
 from pyrevit import revit, forms, DB
 from pyrevit.forms import WPFWindow
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> VARIABLES
+# Variables
 uidoc = revit.uidoc
 doc = revit.doc
 
