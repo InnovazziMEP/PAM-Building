@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
 __title__ = 'Batch Save\nFamilies'
 
+# Import required classes and add references to required libraries
 import os
 import clr
 import webbrowser
 
-# Add references to the necessary assemblies
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
-#import System
-#from System.Windows import Application, Window
 from System.Windows.Controls import Button, TextBox, Image, ListBox
 from System.Windows.Input import MouseButtonState
 
-# Import required classes from Revit API
 from pyrevit import revit, script, forms
 from pyrevit.forms import WPFWindow
+
 from Autodesk.Revit.Exceptions import OperationCanceledException
 
+# Get document
 doc = revit.doc
 
 # Custom class to represent an item in the ListBox
