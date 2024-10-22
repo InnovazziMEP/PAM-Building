@@ -9,7 +9,6 @@ clr.AddReference('PresentationCore')
 clr.AddReference('RevitAPI')
 clr.AddReference('RevitServices')
 
-#import System
 from System.Windows.Controls import Button, TextBox, Image, ListBox
 from System.Windows.Input import MouseButtonState
 
@@ -24,6 +23,7 @@ from Autodesk.Revit.Exceptions import OperationCanceledException
 
 from System.Collections.Generic import List
 
+# Variables
 doc = revit.doc
 uidoc = revit.uidoc
 
