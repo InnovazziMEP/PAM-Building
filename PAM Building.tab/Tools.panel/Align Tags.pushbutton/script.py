@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+__title__ = "Align Tags"
+
+# Imports
 import os
 import clr
 import webbrowser
@@ -5,10 +9,9 @@ import webbrowser
 # Add references to the necessary assemblies
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
-
-# .NET Imports
 clr.AddReference("System")
-#from System.Windows import Application, Window
+
+# System imports
 from System.Windows.Controls import Button, Image, ListBox
 from System.Windows.Input import MouseButtonState
 
@@ -21,10 +24,12 @@ from Autodesk.Revit.UI.Selection import ISelectionFilter, ObjectType
 from Autodesk.Revit.Exceptions import OperationCanceledException
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI import *
+
+#pyRevit imports
 from pyrevit import revit, forms, script
 from pyrevit.forms import WPFWindow
 
-# Get the Revit document
+# Variables
 doc = revit.doc
 uidoc = revit.uidoc
 
@@ -177,7 +182,6 @@ if not selected_tags:
     forms.alert('No tags selected', title='Select Tags')
     script.exit()
 
-
 # Define a selection filter to select only the selected tags from the form
 class TagSelectionFilter(ISelectionFilter):
     def __init__(self, allowed_tag_categories):
@@ -233,7 +237,7 @@ def arrange_tags_vertically():
                 script.exit()
 
         # Start a transaction group
-        with TransactionGroup(doc, "Align Tags") as tg_outer:
+        with TransactionGroup(doc, __title__) as tg_outer:
             tg_outer.Start()
             # Start a transaction to set the Leader Type parameter
             with revit.Transaction("Set Tag Leader Type"):
