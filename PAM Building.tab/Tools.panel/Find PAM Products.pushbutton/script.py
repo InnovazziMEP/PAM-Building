@@ -1,14 +1,19 @@
-# Add references to required Revit API libraries and import required classes from Revit API and pyRevit
+# -*- coding: utf-8 -*-
+__title__ = "Isolate PAM Products"
+
+# Import required classes and add references to required libraries
 import clr
 
 clr.AddReference("RevitAPI")
 clr.AddReference("RevitAPIUI")
 clr.AddReference("System")
+
 from Autodesk.Revit.DB import MEPCurve, BuiltInParameter, FilteredElementCollector, FamilyInstance, ElementId, BuiltInCategory, ElementType, View
 from System.Collections.Generic import List
+
 from pyrevit import revit, forms
 
-# Get the active Revit document and user interface document
+# Variables
 uidoc = revit.uidoc
 doc = revit.doc
 
