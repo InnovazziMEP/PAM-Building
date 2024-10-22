@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+__title__ = "Sum Total Pipe Length"
+
+# Import required classes and add references to required libraries
 import clr
 
 clr.AddReference("RevitAPI")
@@ -10,7 +14,7 @@ from Autodesk.Revit.DB import BuiltInParameter
 
 from pyrevit import revit, forms
 
-# Get the active Revit document and user interface document
+# Variables
 uidoc = revit.uidoc
 doc = revit.doc
 
