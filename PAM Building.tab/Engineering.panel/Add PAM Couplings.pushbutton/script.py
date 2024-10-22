@@ -25,19 +25,18 @@ import os
 import clr
 import webbrowser
 
-# Add references to the necessary assemblies and try again
+# Add references to the necessary assemblies
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
 import System
-#from System.Windows import Application, Window
 from System.Windows.Controls import Button
 from System.Windows.Input import MouseButtonState
 
 from Autodesk.Revit.UI.Selection import ISelectionFilter, ObjectType
 from Autodesk.Revit.Exceptions import OperationCanceledException
 
-from pyrevit import forms, revit
+from pyrevit import revit, forms, script
 from pyrevit.forms import WPFWindow
 
 import re  # Import regular expressions module
@@ -45,19 +44,15 @@ import re  # Import regular expressions module
 import Autodesk
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.DB import *
-from pyrevit import revit, forms, script
-#from rpw import revit
 
 clr.AddReference("RevitAPI")
 clr.AddReference("RevitServices")
 clr.AddReference("RevitNodes")
-#from RevitServices.Persistence import DocumentManager
-#from RevitServices.Transactions import TransactionManager
 
 import Revit
 clr.ImportExtensions(Revit.Elements)
 
-# Get Revit model and document
+# Variables
 doc = revit.doc
 uidoc = revit.uidoc
 
@@ -524,7 +519,6 @@ else:
                             output.print_md(
                                 "- Pipe {} Length: {:.2f} m, Diameter: {:.2f} mm, Type: {}".format(
                                     output.linkify(pipe.Id), pipe_length, pipe_diameter, type_name))
-
 
         except OperationCanceledException:
             forms.alert('User cancelled selection', title='Select Pipes')
