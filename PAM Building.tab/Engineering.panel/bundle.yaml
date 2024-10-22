@@ -7,6 +7,6 @@ layout:
   - Place PAM Couplings
 
 background:
-  panel: '#eeeeee'
+  panel: '#d2e0c3'
   title: '#dbdbdb'
   slideout: '#eeeeee'
