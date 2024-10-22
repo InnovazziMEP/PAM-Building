@@ -56,7 +56,7 @@ if matching_elements:
 
     # Isolate elements temporarily
     view = uidoc.ActiveView
-    with revit.Transaction("Isolate PAM Products"):
+    with revit.Transaction(__title__):
         view.IsolateElementsTemporary(element_ids)
 else:
     # Show an alert if no matching elements were found
