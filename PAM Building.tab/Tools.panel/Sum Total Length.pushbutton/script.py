@@ -2,13 +2,13 @@ import clr
 
 clr.AddReference("RevitAPI")
 clr.AddReference("RevitAPIUI")
+
 from Autodesk.Revit.UI.Selection import ObjectType
 from Autodesk.Revit.Exceptions import OperationCanceledException
 from Autodesk.Revit.UI.Selection import ISelectionFilter
 from Autodesk.Revit.DB import BuiltInParameter
-from pyrevit import revit, forms, script
 
-output = script.get_output()
+from pyrevit import revit, forms
 
 # Get the active Revit document and user interface document
 uidoc = revit.uidoc
