@@ -10,7 +10,6 @@ clr.AddReference('RevitAPI')
 clr.AddReference('RevitServices')
 
 import System
-#from System.Windows import Application, Window
 from System.Windows.Controls import Button, TextBox, Image, ListBox
 from System.Windows.Input import MouseButtonState
 
@@ -22,8 +21,8 @@ import Autodesk
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.Exceptions import OperationCanceledException
-#from RevitServices.Persistence import DocumentManager
 
+# Variables
 doc = revit.doc
 uidoc = revit.uidoc
 
