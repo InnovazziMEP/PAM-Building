@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-__title__ = "EN 12056-2 Calculations"
+__title__ = "BS EN 12056-2 Calculations"
 
 import os
 import math
