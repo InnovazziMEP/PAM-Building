@@ -6,7 +6,7 @@ clr.AddReference("RevitAPIUI")
 clr.AddReference("System")
 from Autodesk.Revit.DB import MEPCurve, BuiltInParameter, FilteredElementCollector, FamilyInstance, ElementId, BuiltInCategory, ElementType, View
 from System.Collections.Generic import List
-from pyrevit import revit, script, forms
+from pyrevit import revit, forms
 
 # Get the active Revit document and user interface document
 uidoc = revit.uidoc
