@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+__title__ = "Set Reference Level"
+
+# Import required classes and add references to required libraries
 import os
 import clr
 import webbrowser
@@ -9,7 +12,6 @@ clr.AddReference('PresentationCore')
 clr.AddReference('RevitAPI')
 clr.AddReference('RevitServices')
 
-import System
 from System.Windows.Controls import Button, TextBox, Image, ListBox
 from System.Windows.Input import MouseButtonState
 
@@ -17,7 +19,6 @@ from System.Windows.Input import MouseButtonState
 from pyrevit import revit, script, forms
 from pyrevit.forms import WPFWindow
 
-import Autodesk
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.Exceptions import OperationCanceledException
@@ -548,7 +549,7 @@ def main():
                     })
 
             # Create a transaction group
-            with TransactionGroup(doc, 'Update Reference Levels') as tg:
+            with TransactionGroup(doc, __title__) as tg:
                 tg.Start()
 
                 # Analyze the elements with Reference Levels using curves and update the parameter within a transaction
