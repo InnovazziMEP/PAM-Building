@@ -26,12 +26,10 @@ import os
 import clr
 import webbrowser
 
-# Add references to the necessary assemblies and try again
+# Add references to the necessary assemblies
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
-import System
-#from System.Windows import Application, Window
 from System.Windows.Controls import Button, ListBox, TextBox
 from System.Windows.Input import MouseButtonState
 
@@ -41,9 +39,6 @@ from Autodesk.Revit.Exceptions import OperationCanceledException
 from pyrevit import forms, revit
 from pyrevit.forms import WPFWindow
 
-#import re  # Import regular expressions module
-
-#import Autodesk
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.DB import *
 from pyrevit import forms, script
@@ -52,13 +47,12 @@ from rpw import revit
 clr.AddReference("RevitAPI")
 clr.AddReference("RevitServices")
 clr.AddReference("RevitNodes")
-#from RevitServices.Persistence import DocumentManager
-#from RevitServices.Transactions import TransactionManager
 
 import Revit
+
 clr.ImportExtensions(Revit.Elements)
 
-# Get Revit model and document
+# Variables
 doc = revit.doc
 uidoc = revit.uidoc
 
