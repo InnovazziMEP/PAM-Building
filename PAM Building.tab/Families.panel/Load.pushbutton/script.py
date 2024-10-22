@@ -21,6 +21,10 @@ from System.Windows.Forms import FolderBrowserDialog, DialogResult
 
 from pyrevit import revit, forms
 
+# Variables
+uidoc = revit.uidoc
+doc = revit.doc
+
 # Store user specified path
 directory = ""
 
@@ -50,10 +54,6 @@ if (dialogResult == DialogResult.OK):
 
     # Call function to search for families in path and subfolders
     familiesList = retrieveFamilies(directory)
-
-    # Store current document into variable
-    uidoc = revit.uidoc
-    doc = revit.doc
 
     # Check if families were found in the selected folder
     if familiesList:
