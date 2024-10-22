@@ -17,7 +17,6 @@ import Autodesk
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI import UIApplication
 from Autodesk.Revit.UI.Selection import *
-from Autodesk.Revit.Exceptions import OperationCanceledException
 
 from pyrevit import revit, forms, script
 from pyrevit.forms import WPFWindow
