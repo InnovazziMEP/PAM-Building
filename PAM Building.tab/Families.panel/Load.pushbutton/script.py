@@ -19,7 +19,7 @@ clr.AddReference("System.Windows.Forms")
 
 from System.Windows.Forms import FolderBrowserDialog, DialogResult
 
-from pyrevit import forms
+from pyrevit import revit, forms
 
 # Store user specified path
 directory = ""
@@ -52,8 +52,8 @@ if (dialogResult == DialogResult.OK):
     familiesList = retrieveFamilies(directory)
 
     # Store current document into variable
-    doc = __revit__.ActiveUIDocument.Document
-    uidoc = __revit__.ActiveUIDocument
+    uidoc = revit.uidoc
+    doc = revit.doc
 
     # Check if families were found in the selected folder
     if familiesList:
