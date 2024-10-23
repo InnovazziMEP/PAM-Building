@@ -11,19 +11,11 @@ import clr
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
-#from collections import OrderedDict
-
-#import System
-
-#from System.Windows import Application, Window
 from System.Windows.Controls import Button, TextBox, Image, ListBox
 from System.Windows.Input import MouseButtonState
 
-#import Autodesk
 from Autodesk.Revit.DB import *
-#from Autodesk.Revit.UI import UIApplication
 from Autodesk.Revit.UI.Selection import ObjectType, ISelectionFilter
-#from Autodesk.Revit.Exceptions import OperationCanceledException
 
 from pyrevit import revit, forms, script
 from pyrevit.forms import WPFWindow
@@ -32,7 +24,6 @@ from pyrevit.forms import WPFWindow
 app = __revit__.Application
 uidoc = revit.uidoc
 doc = revit.doc
-
 
 operation_cancelled = False  # Initialize cancellation flag
 
@@ -517,10 +508,10 @@ with TransactionGroup(doc, __title__) as maintg:
                     # Select elements downstream
                     if continuous_or_pumped:
                         def select_pipework():
-                            with forms.WarningBar(title='Select pipework and press Finish when complete'):
+                            with forms.WarningBar(title='Select element where continuous flow or pumped discharge enters the system'):
                                 selection = uidoc.Selection
                                 pipework_filter = CategorySelectionFilter()
-                                selected_element_ref = selection.PickObject(ObjectType.Element, pipework_filter, "Select a single element")
+                                selected_element_ref = selection.PickObject(ObjectType.Element, pipework_filter, "Select starting element")
                                 selected_element = doc.GetElement(selected_element_ref)
                                 return selected_element
                             
