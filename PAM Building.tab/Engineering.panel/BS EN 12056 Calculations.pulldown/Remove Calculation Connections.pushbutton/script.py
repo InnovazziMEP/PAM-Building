@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-__title__ = "Remove Sizing Connections"
+__title__ = "Remove Calculation Connections"
 
 # Add imports
 import clr
+
 clr.AddReference("RevitAPI")
 clr.AddReference("RevitServices")
 
@@ -10,13 +11,14 @@ from Autodesk.Revit.DB import *
 from Autodesk.Revit.DB.Plumbing import Pipe
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.Exceptions import OperationCanceledException
-from pyrevit import revit, forms, script
+
+from pyrevit import revit, forms
+
 from System.Collections.Generic import List
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> VARIABLES
+# Variables
 uidoc = revit.uidoc
 doc = revit.doc
-output = script.get_output()
 
 # Additional variables
 connected_pipes = set()  # Set to keep track of pipes being connected
@@ -92,7 +94,7 @@ def main():
         try:
             with forms.WarningBar(title='Select fittings and press Finish when complete'):
                 filter = FittingsSelectionFilter()
-                selected_ids = uidoc.Selection.PickObjects(ObjectType.Element, filter, 'Select Sizing Connections')
+                selected_ids = uidoc.Selection.PickObjects(ObjectType.Element, filter, 'Select Calculation Connections')
                 selected_elements = [doc.GetElement(id.ElementId) for id in selected_ids]
                 selected_fitting_ids = [element.Id for element in selected_elements]  # Store the IDs of selected fittings
 

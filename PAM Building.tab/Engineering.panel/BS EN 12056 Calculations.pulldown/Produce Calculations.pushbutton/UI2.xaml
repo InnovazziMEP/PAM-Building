@@ -3,7 +3,7 @@
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="av"
-        Title="EN 12056-2 Foul Drainage Calculations" Height="500" Width="600"
+        Title="BS EN 12056-2 Foul Drainage Calculations" Height="500" Width="600"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="CenterScreen">
 
@@ -57,7 +57,7 @@
             <Border x:Name="TitleBar" Background="#FF5C576F" Height="30" VerticalAlignment="Top" CornerRadius="8.5,8.5,0,0">
                 <Grid>
                     <!-- Title -->
-                    <TextBlock Text="EN 12056-2 Foul Drainage Calculations" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" 
+                    <TextBlock Text="BS EN 12056-2 Foul Drainage Calculations" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" 
                                Foreground="White" FontWeight="Bold"/>
 
                     <!-- Close Button -->

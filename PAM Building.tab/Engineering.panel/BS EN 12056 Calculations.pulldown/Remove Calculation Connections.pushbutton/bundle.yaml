@@ -1,8 +1,8 @@
 title:
-  en_us: Remove Sizing Connections
+  en_us: Remove Calculation Connections
 
 tooltip:
-  en_us: Removes selected foul drainage sizing connections and joins pipes together
+  en_us: Removes selected foul drainage calculation connections and joins pipes together
 
 context:
   any:

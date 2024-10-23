@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-__title__ = "Place Sizing Connections"
+__title__ = "Place Calculation Connections"
 
 # Add imports
 import os
 import clr
 import webbrowser
 
-# Add references to the necessary assemblies and try again
+# Add references to the necessary assemblies
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
@@ -161,7 +161,7 @@ def get_sorted_levels(doc):
     return sorted(levels, key=lambda lvl: lvl.ProjectElevation)
 
 # Define keywords based on family description parameter
-keywords = ['EN 12056 Sizing Connection']
+keywords = ['EN 12056 Calculation Connector']
 
 # Collect matching families and filter out DN sizes with invalid formats
 matching_families = []
@@ -186,7 +186,7 @@ for family_symbol in collector:
 if not len(matching_families) > 0:
     forms.alert(
         "No suitable family found in your project.",
-        title='Load SGPAMUK_ES_EN 12056 Sizing Connection'
+        title='Load SGPAMUK_ES_EN 12056 Calculation Connector'
     )
     script.exit()
 
@@ -351,7 +351,7 @@ def select_elements():
                             tg.Start()
 
                             # Transaction to add rules to routing preferences
-                            with Transaction(doc, "Add SGPAMUK_ES_EN 12056 Sizing Connection to Routing Preferences") as t1:
+                            with Transaction(doc, "Add SGPAMUK_ES_EN 12056 Calculation Connector to Routing Preferences") as t1:
                                 t1.Start()
 
                                 try:
@@ -441,7 +441,7 @@ def select_elements():
                                             raise
 
                                 # Transaction to remove the rules added in t1
-                                with Transaction(doc, "Remove SGPAMUK_ES_EN 12056 Sizing Connection from Routing Preferences") as t3:
+                                with Transaction(doc, "Remove SGPAMUK_ES_EN 12056 Calculation Connector from Routing Preferences") as t3:
                                     t3.Start()
                                     try:
                                         # Get unique pipe types from selected pipes again
@@ -473,16 +473,16 @@ def select_elements():
                             # Determine the message based on the number of fittings placed
                             if fittings_added > 0:
                                 if fittings_added == 1:
-                                    message = "You placed 1 sizing connection!"
+                                    message = "You placed 1 calculation connection!"
                                 else:
-                                    message = "You placed {} sizing connections!".format(fittings_added)
+                                    message = "You placed {} calculation connections!".format(fittings_added)
                                 forms.alert(message, title='Success')
                             else:
-                                forms.alert("You haven't placed any sizing connections", title='Info') 
+                                forms.alert("You haven't placed any calculation connections", title='Info') 
 
                         # Ask if the user wants to select more elements
                         continue_selection = forms.alert(
-                            "Do you want to place more sizing connections?",
+                            "Do you want to place more calculation connections?",
                             title="Continue?",
                             yes=True,
                             no=True
