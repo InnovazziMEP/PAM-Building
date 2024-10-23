@@ -180,7 +180,7 @@
                                  FontSize="14" 
                                  Cursor="Hand" 
                                  IsChecked="True" 
-                                 BorderBrush="#FF3B4559">
+                                 BorderBrush="#FF3B4559" Foreground="#FF3B4559">
                         <RadioButton.ToolTip>
                             <TextBlock TextWrapping="Wrap">
                                 These couplings are for gravity applications the Ensign systems are jointed by
@@ -204,7 +204,7 @@
                                  FontSize="14" 
                                  Cursor="Hand" 
                                  IsChecked="False" 
-                                 BorderBrush="#FF3B4559">
+                                 BorderBrush="#FF3B4559" Foreground="#FF3B4559">
                         <RadioButton.ToolTip>
                             <TextBlock TextWrapping="Wrap">
                                 Ensign soil stainless steel single piece, single bolt Rapid NG coupling assembled
