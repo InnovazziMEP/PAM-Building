@@ -3,7 +3,7 @@
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="av"
-        Title="Place Sizing Connections" Height="700" Width="600"
+        Title="Place Calculation Connections" Height="700" Width="600"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="CenterScreen">
 
@@ -22,8 +22,8 @@
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="BorderElement"
                                 CornerRadius="4"
-                                Background="#5c576f"
-                                BorderBrush="#FFFF531A"
+                                Background="#FF3B4559"
+                                BorderBrush="#FFDC4405"
                                 BorderThickness="1">
                             <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
@@ -31,8 +31,8 @@
                         <ControlTemplate.Triggers>
                             <!-- Trigger for IsMouseOver -->
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BorderElement" Property="Background" Value="#ff531a"/>
-                                <Setter TargetName="BorderElement" Property="BorderBrush" Value="#5c576f"/>
+                                <Setter TargetName="BorderElement" Property="Background" Value="#FFDC4405"/>
+                                <Setter TargetName="BorderElement" Property="BorderBrush" Value="#FF3B4559"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -44,20 +44,20 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Source Sans Pro"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="#FF3B4559"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
 
         </Style>
 
     </Window.Resources>
 
-    <Border Background="#FFE0E0E0" BorderBrush="#ff531a" BorderThickness="1.5" CornerRadius="10,10,10,10">
+    <Border Background="#FFEBECEE" BorderBrush="#FFDC4405" BorderThickness="1.5" CornerRadius="10,10,10,10">
         <Grid>
             <!-- Custom Title Bar -->
-            <Border x:Name="TitleBar" Background="#FF5C576F" Height="30" VerticalAlignment="Top" CornerRadius="8.5,8.5,0,0">
+            <Border x:Name="TitleBar" Background="#FF3B4559" Height="30" VerticalAlignment="Top" CornerRadius="8.5,8.5,0,0">
                 <Grid>
                     <!-- Title -->
-                    <TextBlock Text="Place Sizing Connections" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" 
+                    <TextBlock Text="Place Calculation Connections" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" 
                                Foreground="White" FontWeight="Bold"/>
 
                     <!-- Close Button -->
@@ -79,10 +79,10 @@
             <Grid Margin="0,30,0,0">
 
                 <!-- Updated Image Source to use web link -->
-                <Image x:Name="logo" Source="https://iili.io/dGfBcib.png" 
-                       HorizontalAlignment="Center" VerticalAlignment="Top"
-                       Height="60" Width="325" 
-                       Margin="0,20,0,0" Cursor="Hand"
+                <Image x:Name="logo" Source="https://iili.io/2Kwe7CN.png" 
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Height="98" Width="166" 
+                    Margin="0,10,0,0" Cursor="Hand"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Stretch="Uniform" 
                        RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
@@ -132,12 +132,12 @@
                 </Button>
 
                 <!-- Various Elements -->
-                <Border BorderBrush="#FF5C576F"
+                <Border BorderBrush="#FF3B4559"
                         BorderThickness="1" 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Height="60" Width="497" 
-                        Margin="0,96,0,0"                                        
+                        Margin="0,115,0,0"                                        
                         CornerRadius="10,10,10,10" 
                         Grid.ColumnSpan="2">
                     <Grid>
@@ -161,10 +161,10 @@
                                 MaxLines="1" 
                                 TextWrapping="Wrap" 
                                 MaxLength="7" 
-                                BorderBrush="#FF5C576F" 
+                                BorderBrush="#FF3B4559" 
                                 FontFamily="Source Sans Pro" 
                                 FontWeight="Bold" 
-                                FontSize="14">
+                                FontSize="14" Foreground="#FF3B4559">
                             <TextBox.Effect>
                                 <DropShadowEffect/>
                             </TextBox.Effect>
@@ -182,12 +182,12 @@
                 </Border>
 
                 <!-- Various Elements -->
-                <Border BorderBrush="#FF5C576F" 
+                <Border BorderBrush="#FF3B4559" 
                         BorderThickness="1" 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
-                        Height="385" Width="497" 
-                        Margin="0,180,0,0" 
+                        Height="375" Width="497" 
+                        Margin="0,190,0,0" 
                         CornerRadius="10,10,10,10" 
                         Grid.ColumnSpan="2">
                     <Grid>
@@ -195,7 +195,7 @@
                         <TextBlock HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Height="20" Width="75" 
-                                Margin="20,20,0,0" 
+                                Margin="20,10,0,0" 
                                 TextWrapping="Wrap" 
                                 Text="Select levels" 
                                 Grid.ColumnSpan="2"/>
@@ -204,17 +204,17 @@
                         <TextBlock HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Height="20" Width="450" 
-                                Margin="20,50,0,0" 
+                                Margin="20,40,0,0" 
                                 TextWrapping="Wrap" 
-                                FontSize="11.5"><Run Text="P"/><Run Text="lease choose "/><Run Language="en-gb" Text="the"/><Run Text=" levels where "/><Run Language="en-gb" Text="the "/><Run Text="sizing connections will be placed on your selected pipes"/></TextBlock>
+                                FontSize="11"><Run Text="P"/><Run Text="lease choose "/><Run Language="en-gb" Text="the"/><Run Text=" levels where "/><Run Language="en-gb" Text="the "/><Run Text="calculation connections will be placed on your selected pipes"/></TextBlock>
 
                         <!-- ListBox listing the levels -->
                         <ListBox x:Name="list_levels"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center" 
-                                Height="250" Width="455"  
-                                Margin="0,25,0,0" 
-                                Grid.Column="1">
+                                VerticalAlignment="Top" 
+                                Height="240" Width="455"  
+                                Margin="0,70,0,0" 
+                                Grid.Column="1" BorderBrush="#FF3B4559" Foreground="#FF3B4559">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
