@@ -8,12 +8,9 @@ import webbrowser
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
-import System
-from System.Windows import Application, Window
 from System.Windows.Controls import Button, TextBox, Image, ListBox
 from System.Windows.Input import MouseButtonState
 
-import Autodesk
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI import UIApplication
 from Autodesk.Revit.UI.Selection import *
@@ -24,8 +21,6 @@ from pyrevit.forms import WPFWindow
 # 📦 Variables
 app = __revit__.Application  # type: UIApplication
 doc = revit.doc
-
-output = script.get_output()
 
 operation_cancelled = False  # Initialize cancellation flag
 
