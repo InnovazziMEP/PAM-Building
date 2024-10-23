@@ -58,17 +58,17 @@ uidoc = revit.uidoc
 
 output = script.get_output()
 
-# Function to get length of pipes in meters
+# Function to get length of pipes in meters 
 def get_pipe_length(pipe):
     length_param = pipe.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH)
     if length_param:
         length_in_feet = length_param.AsDouble()
-        length_in_meters = length_in_feet * 0.3048
+        length_in_meters = UnitUtils.ConvertFromInternalUnits(length_in_feet, UnitTypeId.Meters)
         return length_in_meters
     else:
         pipe_curve = pipe.Location.Curve
         length_in_feet = pipe_curve.Length
-        length_in_meters = length_in_feet * 0.3048
+        length_in_meters = UnitUtils.ConvertFromInternalUnits(length_in_feet, UnitTypeId.Meters)
         return length_in_meters
 
 # Function to get diameter of pipes in millimeters
@@ -76,7 +76,7 @@ def get_pipe_diameter(pipe):
     diameter_param = pipe.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM)
     if diameter_param:
         diameter_in_feet = diameter_param.AsDouble()
-        diameter_in_mm = diameter_in_feet * 304.8
+        diameter_in_mm = UnitUtils.ConvertFromInternalUnits(diameter_in_feet, UnitTypeId.Millimeters)
         return diameter_in_mm
     return None
 
