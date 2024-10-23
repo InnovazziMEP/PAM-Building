@@ -193,7 +193,7 @@
                                  TextWrapping="Wrap" FontFamily="Source Sans Pro"
                                  ToolTip="Filter parameter groups from shared parameter file"
                                  TextAlignment="Center"
-                                 Grid.Column="1" BorderBrush="#FF3B4559"/>
+                                 Grid.Column="1" BorderBrush="#FF3B4559" Foreground="#FF3B4559"/>
                         <!-- Second TextBlock: Search Icon -->
                         <TextBlock VerticalAlignment="Center" 
                                 Margin="105,0,370,0" Text="🔍" 
