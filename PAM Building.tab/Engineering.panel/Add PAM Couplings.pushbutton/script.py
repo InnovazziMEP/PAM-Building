@@ -440,13 +440,6 @@ else:
                                                     break
                                                 except:
                                                     pass
-                                            elif isinstance(ec, Autodesk.Revit.DB.Mechanical.Duct):
-                                                try:
-                                                    splitId = Autodesk.Revit.DB.Mechanical.MechanicalUtils.BreakCurve(
-                                                        doc, ec.Id, p)
-                                                    break
-                                                except:
-                                                    pass
                                         if splitId:
                                             split = doc.GetElement(splitId)
                                             if hasattr(split, "ConnectorManager"):
