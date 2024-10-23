@@ -206,7 +206,7 @@
                                 Height="20" Width="450" 
                                 Margin="20,40,0,0" 
                                 TextWrapping="Wrap" 
-                                FontSize="11"><Run Text="P"/><Run Text="lease choose "/><Run Language="en-gb" Text="the"/><Run Text=" levels where "/><Run Language="en-gb" Text="the "/><Run Text="calculation connections will be placed on your selected pipes"/></TextBlock>
+                                FontSize="11.2"><Run Text="P"/><Run Text="lease choose "/><Run Language="en-gb" Text="the"/><Run Text=" levels where "/><Run Language="en-gb" Text="the "/><Run Text="calculation connections will be placed on your selected pipes"/></TextBlock>
 
                         <!-- ListBox listing the levels -->
                         <ListBox x:Name="list_levels"
