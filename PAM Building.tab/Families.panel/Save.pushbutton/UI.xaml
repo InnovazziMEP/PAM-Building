@@ -21,8 +21,8 @@
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="BorderElement"
                                 CornerRadius="4"
-                                Background="#5c576f"
-                                BorderBrush="#FFFF531A"
+                                Background="#FF3B4559"
+                                BorderBrush="#FFDC4405"
                                 BorderThickness="1">
                             <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
@@ -30,8 +30,8 @@
                         <ControlTemplate.Triggers>
                             <!-- Trigger for IsMouseOver -->
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BorderElement" Property="Background" Value="#ff531a"/>
-                                <Setter TargetName="BorderElement" Property="BorderBrush" Value="#5c576f"/>
+                                <Setter TargetName="BorderElement" Property="Background" Value="#FFDC4405"/>
+                                <Setter TargetName="BorderElement" Property="BorderBrush" Value="#FF3B4559"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -43,17 +43,17 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Source Sans Pro"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="#FF3B4559"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
 
         </Style>
 
     </Window.Resources>
 
-    <Border Background="#FFE0E0E0" BorderBrush="#ff531a" BorderThickness="1.5" CornerRadius="10,10,10,10">
+    <Border Background="#FFEBECEE" BorderBrush="#FFDC4405" BorderThickness="1.5" CornerRadius="10,10,10,10">
         <Grid>
             <!-- Custom Title Bar -->
-            <Border x:Name="TitleBar" Background="#FF5C576F" Height="30" VerticalAlignment="Top" CornerRadius="8.5,8.5,0,0">
+            <Border x:Name="TitleBar" Background="#FF3B4559" Height="30" VerticalAlignment="Top" CornerRadius="8.5,8.5,0,0">
                 <Grid>
                     <!-- Title -->
                     <TextBlock Text="Batch Save Families" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" 
@@ -78,10 +78,10 @@
             <Grid Margin="0,30,0,0">
 
                 <!-- Updated Image Source to use web link -->
-                <Image x:Name="logo" Source="https://iili.io/dGfBcib.png" 
-                       HorizontalAlignment="Center" VerticalAlignment="Top"
-                       Height="50" Width="314" 
-                       Margin="0,25,0,0" Grid.ColumnSpan="2" Cursor="Hand"
+                <Image x:Name="logo" Source="https://iili.io/2Kwe7CN.png" 
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Height="98" Width="166" 
+                    Margin="0,10,0,0" Cursor="Hand"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Stretch="Uniform" 
                        RenderTransformOrigin="0.5,0.5">
@@ -131,12 +131,12 @@
                 </Button>
 
                 <!-- Multiple Elements -->
-                <Border BorderBrush="#FF5C576F"
+                <Border BorderBrush="#FF3B4559"
                         BorderThickness="1" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top"
                         Height="64" Width="537" 
-                        Margin="30,105,0,0" 
+                        Margin="30,115,0,0" 
                         CornerRadius="10,10,10,10" 
                         Grid.ColumnSpan="2">
                     <Grid>
@@ -159,22 +159,22 @@
                                  FontSize="14" FontFamily="Source Sans Pro"
                                  ToolTip="Filter families"
                                  TextAlignment="Center"
-                                 Grid.Column="1"/>
+                                 Grid.Column="1" BorderBrush="#FF3B4559"/>
 
                         <!-- Second TextBlock: Search Icon -->
                         <TextBlock VerticalAlignment="Center" 
                                 Margin="120,0,390,0" Text="🔍" 
-                                Foreground="#FF5C576F" FontSize="18"/>
+                                Foreground="#FF3B4559" FontSize="16"/>
                     </Grid>
                 </Border>
 
                 <!-- Multiple Elements -->
-                <Border BorderBrush="#FF5C576F" 
+                <Border BorderBrush="#FF3B4559" 
                         BorderThickness="1" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Top"
-                        Height="385" Width="537"
-                        Margin="0,180,0,0" 
+                        Height="375" Width="537"
+                        Margin="0,200,0,0" 
                         CornerRadius="10,10,10,10" 
                         Grid.ColumnSpan="2">
                     <Grid>
@@ -182,24 +182,24 @@
                         <TextBlock HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
                                    Height="20" Width="110" 
-                                   Margin="20,20,0,0" 
+                                   Margin="20,10,0,0" 
                                    TextWrapping="Wrap"><Run Language="en-gb" Text="Select Families"/></TextBlock>
 
                         <!-- Second TextBlock -->
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Top"
                                    Height="20" Width="495" 
-                                   Margin="0,50,0,0" 
+                                   Margin="0,40,0,0" 
                                    TextWrapping="Wrap" 
                                    FontSize="11.5"><Run Text="Th"/><Run Text="is"/><Run Text=" list "/><Run Text="below "/><Run Text="contains all the families available in your Revit project"/></TextBlock>
 
                         <!-- ListBox listing the families -->
                         <ListBox x:Name="list_families"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center"  
-                                Height="250" Width="495"  
-                                Margin="0,20,0,0" 
-                                Grid.ColumnSpan="2">
+                                VerticalAlignment="Top"  
+                                Height="240" Width="495"  
+                                Margin="0,70,0,0" 
+                                Grid.ColumnSpan="2" BorderBrush="#FF3B4559" Foreground="#FF3B4559">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
