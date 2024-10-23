@@ -159,7 +159,7 @@
                                  FontSize="14" FontFamily="Source Sans Pro"
                                  ToolTip="Filter families"
                                  TextAlignment="Center"
-                                 Grid.Column="1" BorderBrush="#FF3B4559"/>
+                                 Grid.Column="1" BorderBrush="#FF3B4559" Foreground="#FF3B4559"/>
 
                         <!-- Second TextBlock: Search Icon -->
                         <TextBlock VerticalAlignment="Center" 
