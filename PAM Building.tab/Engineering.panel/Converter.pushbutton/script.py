@@ -30,22 +30,19 @@ import webbrowser
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
-import System
+#import System
 from System.Windows.Controls import Button, ListBox, TextBox
 from System.Windows.Input import MouseButtonState
 
 from Autodesk.Revit.UI.Selection import ISelectionFilter, ObjectType
 from Autodesk.Revit.Exceptions import OperationCanceledException
 
-from pyrevit import forms, revit
+from pyrevit import revit, forms, script
 from pyrevit.forms import WPFWindow
 
 #import Autodesk
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.DB import *
-
-from pyrevit import forms, script
-#from rpw import revit
 
 clr.AddReference("RevitAPI")
 clr.AddReference("RevitServices")
@@ -576,7 +573,18 @@ except OperationCanceledException:
     forms.alert('User cancelled selection', title='Select Pipework')
     script.exit()  # Exit the script to prevent further processing
 
-# Output message with the count of pipes and fittings changed
+"""# Output message with the count of pipes and fittings changed
 output_message = "Congratulations, you changed {} pipes.".format(num_pipes_changed)
 output_message += " You also changed {} pipe fittings and accessories.".format(num_fittings_changed)
-print(output_message)
+print(output_message)"""
+
+# Determine the message based on the number of converted elements
+num_total_elements_changed = num_pipes_changed + num_fittings_changed
+if num_total_elements_changed > 0:
+    if num_total_elements_changed == 1:
+        message = "You converted 1 element!"
+    else:
+        message = "You converted {} elements!".format(num_total_elements_changed)
+    forms.alert(message, title='Success')
+else:
+    forms.alert("You haven't converted any elements", title='Info')
