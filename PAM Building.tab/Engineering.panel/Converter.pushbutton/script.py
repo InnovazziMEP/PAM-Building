@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__title__ = "PAM Building\nConverter"
+__title__ = "PAM Building Converter"
 __author__ = "PAM Building UK"
 __doc__ = """Version = 1.0
 Date    = 01.11.2024
@@ -217,32 +217,33 @@ class CategorySelectionFilter(ISelectionFilter):
     def AllowReference(self, ref, point):
         return True
 
-# Use the pipe type selected from the WPF window
+# Use the pipe type selected from the UI
 pipe_type_name = selected_pipe_type[0].Name  # Because only one pipe type is selected
 pipe_type = pipe_types_dict[pipe_type_name]
-#rpm = pipe_type.RoutingPreferenceManager
-#rc = RoutingConditions(RoutingPreferenceErrorLevel.None)
 
 # Clear unused elements
 del pipe_types_dict
 
 # Main logic
 try:
-    # Picking elements
-    with forms.WarningBar(title="Select pipework and press Finish when complete"):
-        selected_elements = uidoc.Selection.PickObjects(
-            ObjectType.Element, 
-            CategorySelectionFilter(["Pipes", "Pipe Fittings", "Pipe Accessories"]), 
-            'Select Pipework'
-        )
+    # Loop until elements are selected
+    while True:
+        # Prompt user to pick elements
+        with forms.WarningBar(title="Select pipework and press Finish when complete"):
+            selected_elements = uidoc.Selection.PickObjects(
+                ObjectType.Element,
+                CategorySelectionFilter(["Pipes", "Pipe Fittings", "Pipe Accessories"]),
+                'Select Pipework'
+            )
 
-    # Check if no elements were selected
-    if not selected_elements:
-        forms.alert('No elements have been selected', title='Select Pipework')
-        script.exit()
+        # Check if user selected any elements
+        if selected_elements:
+            break  # Exit loop if elements are selected
+        else:
+            forms.alert('No elements have been selected', title='Select Pipework')
 
     # Start the transaction for changing pipes and fittings
-    transaction = Transaction(doc, 'Convert Pipework to PAM Building')
+    transaction = Transaction(doc, __title__)
     transaction.Start()
 
     num_pipes_changed = 0  # Counter for pipes changed
@@ -259,9 +260,17 @@ try:
             # Process pipe fittings and pipe accessories
             else:
                 element_type = doc.GetElement(element.GetTypeId())
-                description_param = element_type.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION).AsString()
-                #family_name = element_type.get_Parameter(BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM).AsString()
+                description_param = element_type.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION).AsString()  
                 type_name = element_type.get_Parameter(BuiltInParameter.SYMBOL_NAME_PARAM).AsString()
+                # Get and convert Nominal Diameter parameter value to mm
+                instance_diameter_param = element.LookupParameter('Nominal Diameter')
+
+                # Check if instance parameter 'Nominal Diameter' exists
+                if instance_diameter_param:  # Only proceed if the parameter exists
+                    # Retrieve and convert diameter value
+                    instance_diameter_param_value = instance_diameter_param.AsDouble()
+                    converted_instance_diameter_param_value = UnitUtils.ConvertFromInternalUnits(instance_diameter_param_value, UnitTypeId.Millimeters)
+                #converted_instance_diameter_param_value = UnitUtils.ConvertFromInternalUnits(instance_diameter_param_value, UnitTypeId.Millimeters)
 
                 # Initialize family_name
                 family_name = ""
@@ -425,19 +434,19 @@ try:
                         family_name = "SGPAMUK_ES_Movement Connector_EF058_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Movement Connector_EF058_NG"
-
                 elif "Rodding Branch" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Rodding Branch_EF009_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Rodding Branch_EF009_NG"
-
-                elif "Short Radius Bend" in description_param:
+                # Determine family based on description and diameter
+                elif "Short Radius Bend" in description_param and converted_instance_diameter_param_value > 300:
+                    family_name = "SGPAMUK_ES_Bend_EF002_HP"
+                elif "Short Radius Bend" in description_param and converted_instance_diameter_param_value <= 300:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Bend_AF002_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Bend_AF002_NG"
-
                 elif "Single Boss at 88º" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Boss_AF090_DI"
@@ -463,13 +472,14 @@ try:
                         family_name = "SGPAMUK_ES_Single Branch With Access Radius Curve_EF07R_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Single Branch With Access Radius Curve_EF07R_NG"
-
-                elif "Single Branch" in description_param:
+                # Determine family based on description and diameter
+                elif "Single Branch" in description_param and converted_instance_diameter_param_value > 300:
+                    family_name = "SGPAMUK_ES_Single Branch_EF006_HP"
+                elif "Single Branch" in description_param and converted_instance_diameter_param_value <= 300:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Branch_AF006_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Single Branch_AF006_NG"
-
                 elif "Stack Support Pipe" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Stack Support Pipe_EF050 & EF051_DI"
@@ -501,14 +511,14 @@ try:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Venting Branch Interconnecting_EF013_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
-                        family_name = "SGPAMUK_ES_Venting Branch Interconnecting_EF013_NG"                        
-
-                #elif "Metallic Coupling" in description_param:
-                    #if selected_coupling == 'EC002 - Ductile Iron Coupling':
-                        #family_name = "SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union"
-                    #elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
-                        #family_name = "SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union"    
+                        family_name = "SGPAMUK_ES_Venting Branch Interconnecting_EF013_NG"                                         
                 
+                elif "Metallic Coupling" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union"   
+                                        
                 elif "EN 12056 Calculation Connector" in description_param:
                     family_name = "SGPAMUK_ES_EN 12056 Calculation Connector"
                 #Pipe Accessories
