@@ -38,25 +38,21 @@
             </Setter>
         </Style>
 
-
         <!-- Define the style for TextBlock -->
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Source Sans Pro"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
-
-
         </Style>
-
-
+        
     </Window.Resources>
 
     <!--MAIN-->
     <Border CornerRadius="10" 
             Background="#FFDC4405" 
             BorderBrush="#FF3B4559" 
-            BorderThickness="3"
+            BorderThickness="4"
             Padding="5">
 
         <Grid>
@@ -68,7 +64,6 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <!-- Background Color -->
-            <!-- Define Clip for rounded corners -->
 
             <!-- ROW DEFINITIONS START-->
             <Grid.RowDefinitions>
@@ -152,7 +147,6 @@
             </Grid>
             <!--HEADER END-->
 
-
             <StackPanel Margin="0" Grid.Row="1" HorizontalAlignment="Center">
                 <!-- Additional Information -->
                 <Border Background="#FF3B4559" CornerRadius="10" Padding="20" Margin="0" Width="460">
@@ -222,7 +216,7 @@
     </Hyperlink>
                         </TextBlock>
                         <TextBlock/>
-                        <!-- Description -->
+                        <!-- Made by -->
                         <TextBlock 
                                    FontSize="14" 
                                    Foreground="#FFFFFF"
@@ -291,21 +285,19 @@
                 <!-- Stars -->
                 <Ellipse Style="{StaticResource starStyle}" Width="3" Height="3" Canvas.Left="25" Canvas.Top="50"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="3" Height="3" Canvas.Left="50" Canvas.Top="100"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="10" Canvas.Top="200"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="40" Canvas.Top="300"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="60" Canvas.Top="400"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="200" Canvas.Top="425"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="350" Canvas.Top="375"/>
+                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="565" Canvas.Top="180"/>
+                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="30" Canvas.Top="200"/>
+                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="150" Canvas.Top="250"/>
+                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="80" Canvas.Top="305"/>
+                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="120" Canvas.Top="350"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="2" Height="2" Canvas.Left="300" Canvas.Top="325"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="3" Height="3" Canvas.Left="400" Canvas.Top="275"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="300" Canvas.Top="125"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="450" Canvas.Top="150"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="510" Canvas.Top="150"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="540" Canvas.Top="50"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="475" Canvas.Top="350"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="425" Canvas.Top="400"/>
+                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="475" Canvas.Top="330"/>
                 <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="540" Canvas.Top="250"/>
-                <Ellipse Style="{StaticResource starStyle}" Width="4" Height="4" Canvas.Left="560" Canvas.Top="440"/>
             </Canvas>
 
         </Grid>
