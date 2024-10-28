@@ -1,7 +1,7 @@
 ﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="MainWindow" Height="500" Width="600"
+    Title="MainWindow" Height="550" Width="600"
     WindowStyle="None" AllowsTransparency="True" Background="Transparent"
     WindowStartupLocation="CenterScreen">
 
@@ -60,21 +60,20 @@
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                     <GradientStop Color="#FF3B4559" Offset="0" />
-                    <GradientStop Color="#FFE0E0E0" Offset="1" />
+                    <GradientStop Color="#FFEBECEE" Offset="0.85" />
                 </LinearGradientBrush>
             </Grid.Background>
             <!-- Background Color -->
 
-            <!-- ROW DEFINITIONS START-->
+            <!-- ROW DEFINITIONS-->
             <Grid.RowDefinitions>
-                <RowDefinition Height="115"/>
                 <!-- Header Row -->
-                <RowDefinition/>
+                <RowDefinition Height="115"/>
                 <!-- Main Content Row -->
-                <RowDefinition Height="25"/>
+                <RowDefinition/>
                 <!-- Footer Row -->
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <!-- ROW DEFINITIONS END-->
 
             <!--HEADER START-->
             <Grid MouseDown="header_drag" Background="Transparent" Grid.Row="0" Margin="10">
@@ -218,19 +217,24 @@
                         <TextBlock/>
                         <!-- Made by -->
                         <TextBlock 
-                                   FontSize="14" 
-                                   Foreground="#FFFFFF"
-                                   HorizontalAlignment="Center"><Run Text="Made by"/><Run Language="en-gb" Text=" PAM Building UK"/></TextBlock>
+                            FontSize="14" 
+                            Foreground="#FFFFFF"
+                            HorizontalAlignment="Center"><Run Text="Made by"/><Run Language="en-gb" Text=" PAM Building UK"/></TextBlock>
                     </StackPanel>
                 </Border>
             </StackPanel>
 
             <!--FOOTER-->
             <TextBlock 
-                            Grid.Column="1"
-                            FontSize="14"        Foreground="#FFFFFF" Opacity="0.8"
-                            TextWrapping="Wrap"   Grid.Row="2"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="PAM Building"/><Run Language="en-gb" Text=" "/><Run Text="Extension | Version 1.0"/></TextBlock>
+                Grid.Column="1"
+                FontSize="14" 
+                Foreground="#FFFFFF"
+                Opacity="0.8"
+                TextWrapping="Wrap"
+                Grid.Row="2"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center">
+                <Run Text="PAM Building"/><Run Language="en-gb" Text=" "/><Run Text="Extension | Version 1.0"/></TextBlock>
 
             <!-- Animated Stars Background -->
             <Canvas Grid.Row="1">
