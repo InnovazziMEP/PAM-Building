@@ -194,7 +194,8 @@
                         </RadioButton.ToolTip>
                     </RadioButton>
 
-                    <TextBlock Height="40">
+                    <TextBlock Height="40" 
+                               FontSize="12">
                         <Run Text="Two "/><Run Language="en-gb" Text="P"/><Run Text="iece "/><Run Language="en-gb" Text="D"/><Run Text="uctile "/><Run Language="en-gb" Text="I"/><Run Text="ron "/><Run Language="en-gb" Text="C"/><Run Text="oupling. For sizes from 50-"/><Run Text="3"/><Run Text="00mm."/></TextBlock>
 
                     <RadioButton x:Name="EC002NG" 
@@ -218,7 +219,8 @@
                         </RadioButton.ToolTip>
                     </RadioButton>
 
-                    <TextBlock Height="20">
+                    <TextBlock Height="20"
+                               FontSize="12">
                         <Run Text="Stainless "/><Run Text="S"/><Run Text="teel Rapid S NG"/><Run Text=" "/><Run Language="en-gb" Text="C"/><Run Text="oupling. For sizes from 50-"/><Run Text="3"/><Run Text="00mm."/></TextBlock>
 
                 </StackPanel>

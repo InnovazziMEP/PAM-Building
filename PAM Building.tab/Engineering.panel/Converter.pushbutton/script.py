@@ -30,6 +30,7 @@ import webbrowser
 clr.AddReference('PresentationFramework')
 clr.AddReference('PresentationCore')
 
+import System
 from System.Windows.Controls import Button, ListBox, TextBox
 from System.Windows.Input import MouseButtonState
 
@@ -39,17 +40,18 @@ from Autodesk.Revit.Exceptions import OperationCanceledException
 from pyrevit import forms, revit
 from pyrevit.forms import WPFWindow
 
+#import Autodesk
 from Autodesk.Revit.UI.Selection import *
 from Autodesk.Revit.DB import *
+
 from pyrevit import forms, script
-from rpw import revit
+#from rpw import revit
 
 clr.AddReference("RevitAPI")
 clr.AddReference("RevitServices")
 clr.AddReference("RevitNodes")
 
 import Revit
-
 clr.ImportExtensions(Revit.Elements)
 
 # Variables
@@ -72,6 +74,21 @@ def get_dict_of_elements(built_in_category):
 
 # Get pipe types
 pipe_types_dict = get_dict_of_elements(BuiltInCategory.OST_PipeCurves)
+
+# Function to get family type IDs with added support for single-type families
+def get_family_type_ids(doc, family_name, type_names):
+    type_ids = {}
+    collector = FilteredElementCollector(doc).OfClass(FamilySymbol)
+    for symbol in collector:
+        if symbol.FamilyName == family_name:
+            symbol_name = symbol.get_Parameter(BuiltInParameter.SYMBOL_NAME_PARAM).AsString()
+            # Add type if it matches one in type_names or if there’s only one type available
+            if not type_names or symbol_name in type_names:
+                type_ids[symbol_name] = symbol.Id
+                # Handle single type families by setting the default ID
+                if len(type_ids) == 1 and not type_names:
+                    return symbol.Id
+    return type_ids
 
 # Convert the dictionary items into PipeTypeItem objects and sort them by Name
 family_items = sorted(
@@ -203,25 +220,24 @@ class CategorySelectionFilter(ISelectionFilter):
 # Use the pipe type selected from the WPF window
 pipe_type_name = selected_pipe_type[0].Name  # Because only one pipe type is selected
 pipe_type = pipe_types_dict[pipe_type_name]
-rpm = pipe_type.RoutingPreferenceManager
-rc = RoutingConditions(RoutingPreferenceErrorLevel.None)
+#rpm = pipe_type.RoutingPreferenceManager
+#rc = RoutingConditions(RoutingPreferenceErrorLevel.None)
 
 # Clear unused elements
 del pipe_types_dict
-
 
 # Main logic
 try:
     # Picking elements
     with forms.WarningBar(title="Select pipework and press Finish when complete"):
-        collector = uidoc.Selection.PickObjects(
+        selected_elements = uidoc.Selection.PickObjects(
             ObjectType.Element, 
-            CategorySelectionFilter(["Pipes", "Pipe Fittings", "Pipe Accessories", "Plumbing Fixtures"]), 
+            CategorySelectionFilter(["Pipes", "Pipe Fittings", "Pipe Accessories"]), 
             'Select Pipework'
         )
 
     # Check if no elements were selected
-    if not collector:
+    if not selected_elements:
         forms.alert('No elements have been selected', title='Select Pipework')
         script.exit()
 
@@ -230,23 +246,28 @@ try:
     transaction.Start()
 
     num_pipes_changed = 0  # Counter for pipes changed
-    num_fittings_changed = 0  # Counter for fittings changed
+    num_fittings_changed = 0  # Counter for fittings and accessories changed
 
     # Loop through picked elements to change pipe types
-    for element in collector:
+    for element in selected_elements:
         try:
             element = doc.GetElement(element)
+            # Process pipes
             if element.Category.Name == "Pipes":
                 element.ChangeTypeId(pipe_type.Id)
                 num_pipes_changed += 1  # Increment the counter
+            # Process pipe fittings and pipe accessories
             else:
                 element_type = doc.GetElement(element.GetTypeId())
                 description_param = element_type.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION).AsString()
+                #family_name = element_type.get_Parameter(BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM).AsString()
+                type_name = element_type.get_Parameter(BuiltInParameter.SYMBOL_NAME_PARAM).AsString()
 
-                # Initialize family_name as empty
+                # Initialize family_name
                 family_name = ""
 
                 # Check if the description contains certain substrings
+                #Pipe Fittings
                 if "45° Single Long Arm Branch" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_45° Single Long Arm Branch_EF008_DI"
@@ -307,43 +328,235 @@ try:
                         family_name = "SGPAMUK_ES_Corner Radius Branch_EF035R_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Corner Radius Branch_EF035R_NG"
+                elif "Long Tail Double Bend" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Bend_EF054_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Bend_EF054_NG"
+                elif "Double Boss with Bosses Opposed at 88º" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_AF091_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_AF091_NG"
+                elif "Double Boss with Bosses at 90º" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_AF092_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_AF092_NG"
+                elif "Double Boss with Drilled/Tapped 50mm Bosses Opposed at 88º" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_EF091T_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_EF091T_NG"
+                elif "Double Boss with Drilled/Tapped 50mm Bosses at 90º" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_EF092T_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Boss_EF092T_NG"
+                elif "Double Branch Long Tail Radius Curve" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Branch Long Tail Radius Curve_EF097_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Branch Long Tail Radius Curve_EF097_NG"
+                elif "Double Radius Branch" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Branch Radius Curve_AF010R_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Branch Radius Curve_AF010R_NG"
+                elif "Double Branch" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Double Branch_AF010_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Double Branch_AF010_NG"
+                elif "Expansion Plug" in description_param:
+                    family_name = "SGPAMUK_ES_Expansion Plug_EF074"
+                elif "Long Radius Bend" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Long Radius Bend_EF02L_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Long Radius Bend_EF02L_NG"
+                elif "Long Tail Bend" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Bend_EF055_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Bend_EF055_NG"
+                elif "Long Tail Corner Branch" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Corner Branch_EF036_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Corner Branch_EF036_NG"
+                elif "Long Tail Double Boss with Bosses Opposed at 88º" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Double Boss_EF091LT_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Double Boss_EF091LT_NG"
+                elif "Long Tail Double Boss with Bosses at 90º" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Double Boss_EF092LT_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Double Boss_EF092LT_NG"
+                elif "Long Tail Single Boss at 88º" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Single Boss_EF090LT_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Single Boss_EF090LT_NG"
+                elif "Long Tail Single Branch" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Single Branch_EF056_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Long Tail Single Branch_EF056_NG"
+                elif "Manifold Connector" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Manifold Connector_EF094_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Manifold Connector_EF094_NG"
+                elif "Corner Multi-Waste Manifold Connector" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Manifold Connector Corner_EF099_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Manifold Connector Corner_EF099_NG"
+                elif "Multi-Waste Manifold Connector" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Manifold Connector_EF095_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Manifold Connector_EF095_NG"
+                elif "Push-Fit Movement Connector" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Movement Connector_EF058_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Movement Connector_EF058_NG"
 
-
+                elif "Rodding Branch" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Rodding Branch_EF009_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Rodding Branch_EF009_NG"
 
                 elif "Short Radius Bend" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Bend_AF002_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Bend_AF002_NG"
-                elif "Long Radius Bend" in description_param:
+
+                elif "Single Boss at 88º" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
-                        family_name = "SGPAMUK_ES_Long Radius Bend_EF02L_DI"
+                        family_name = "SGPAMUK_ES_Single Boss_AF090_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
-                        family_name = "SGPAMUK_ES_Long Radius Bend_EF02L_NG"
+                        family_name = "SGPAMUK_ES_Single Boss_AF090_NG"
+                elif "Single Boss with Drilled/Tapped 50mm Boss Connection" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Single Boss_EF090T_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Single Boss_EF090T_NG"
+                elif "Single Branch Long Tail Radius Curve" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Single Branch Long Tail Radius Curve_EF096_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Single Branch Long Tail Radius Curve_EF096_NG"
+                elif "Single Branch with Radius Curve" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Single Branch Radius Curve_AF06R_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Single Branch Radius Curve_AF06R_NG"
+                elif "Single Branch with Access Radius Curve" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Single Branch With Access Radius Curve_EF07R_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Single Branch With Access Radius Curve_EF07R_NG"
+
                 elif "Single Branch" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Branch_AF006_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Single Branch_AF006_NG"
 
+                elif "Stack Support Pipe" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Stack Support Pipe_EF050 & EF051_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Stack Support Pipe_EF050 & EF051_NG"
+                elif "Stench Trap" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Stench Trap_EF081_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Stench Trap_EF081_NG"
+                elif "Taper Pipe" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Taper Pipe_EF028_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Taper Pipe_EF028_NG"
+                elif "Transitional Connector" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Transitional Connector_EF059_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Transitional Connector_EF059_NG"
+                elif "Universal Connector" in description_param:
+                    family_name = "SGPAMUK_ES_Universal Connector_EF071R"
+                elif "Entry/Terminal Venting Branch" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Venting Branch Entry-Terminal_EF013_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Venting Branch Entry-Terminal_EF013_NG"
+                elif "Interconnecting Venting Branch" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Venting Branch Interconnecting_EF013_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Venting Branch Interconnecting_EF013_NG"                        
 
-                # Change the type if a family name is set
+                #elif "Metallic Coupling" in description_param:
+                    #if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        #family_name = "SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union"
+                    #elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        #family_name = "SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union"    
+                
+                elif "EN 12056 Calculation Connector" in description_param:
+                    family_name = "SGPAMUK_ES_EN 12056 Calculation Connector"
+                #Pipe Accessories
+                elif "Offset" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Offset_EF024_DI"                                               
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Offset_EF024_NG"                        
+                elif "Roof Connector for Asphalts" in description_param:
+                    family_name = "SGPAMUK_ES_Roof Connector For Asphalts_EF073"
+                elif "Roof Connector for Asphalts" in description_param:
+                    family_name = "SGPAMUK_ES_Roof Penetration Flange with Gasket_EF079"
+                elif "Strap-On Boss" in description_param:
+                    family_name = "SGPAMUK_ES_Strap-On-Boss_EF133"
+                elif "Branch Trap" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Trap Branch_EF080_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Trap Branch_EF080_NG" 
+                elif "Trap Plain" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Trap Plain Branch_EF034_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Trap Plain Branch_EF034_NG" 
+                elif "Trap Plain With Access Bottom" in description_param:
+                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
+                        family_name = "SGPAMUK_ES_Trap Plain With Access Bottom_EF037_DI"
+                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
+                        family_name = "SGPAMUK_ES_Trap Plain With Access Bottom_EF037_NG" 
+
+                # Change the type 
                 if family_name:
-                    family_symbol = None
-                    # Find the family symbol by name
-                    for symbol in FilteredElementCollector(doc).OfClass(FamilySymbol):
-                        if symbol.FamilyName == family_name:
-                            family_symbol = symbol
-                            break
-                    if family_symbol:
-                        element.ChangeTypeId(family_symbol.Id)
-                        num_fittings_changed += 1  # Increment the counter
+                    type_ids = get_family_type_ids(doc, family_name, [type_name])
+                    if isinstance(type_ids, ElementId):
+                        # Single type family case: Directly change to this type
+                        element.ChangeTypeId(type_ids)
+                    elif type_name in type_ids:
+                        # Multiple type family case
+                        element.ChangeTypeId(type_ids[type_name])
+
+                    num_fittings_changed += 1 # Increment the counter
 
         except Exception as e:
             # Handle any exceptions that occur during the loop
             print("Error processing element: {} - {}".format(element.Id, str(e)))
-            # Optionally, you can choose to continue or break the loop
-            continue  # or use 'break' to exit the loop
+            continue  
+
+    doc.Regenerate()
 
     # Commit the transaction for changing pipes and fittings
     transaction.Commit()
@@ -355,5 +568,5 @@ except OperationCanceledException:
 
 # Output message with the count of pipes and fittings changed
 output_message = "Congratulations, you changed {} pipes.".format(num_pipes_changed)
-output_message += " You also changed {} fittings.".format(num_fittings_changed)
+output_message += " You also changed {} pipe fittings and accessories.".format(num_fittings_changed)
 print(output_message)
