@@ -273,7 +273,8 @@ try:
                 family_name = ""
 
                 # Check if the description contains certain substrings
-                #Pipe Fittings
+                # Determine family based on description
+                # Pipe Fittings
                 if "45° Single Long Arm Branch" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_45° Single Long Arm Branch_EF008_DI"
@@ -518,7 +519,7 @@ try:
                                         
                 elif "EN 12056 Calculation Connector" in description_param:
                     family_name = "SGPAMUK_ES_EN 12056 Calculation Connector"
-                #Pipe Accessories
+                # Pipe Accessories
                 elif "Offset" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Offset_EF024_DI"                                               
