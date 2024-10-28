@@ -221,6 +221,78 @@ pipe_type = pipe_types_dict[pipe_type_name]
 # Clear unused elements
 del pipe_types_dict
 
+# Define mapping for the coupling family based on selected coupling and family type
+coupling_mapping = {
+    'DN50x50': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN50x50"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN50x50"),
+    },
+    'DN70x70': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN70x70"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN70x70"),
+    },
+    'DN100x100': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN100x100"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN100x100"),
+    },
+    'DN125x125': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN125x125"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN125x125"),
+    },
+    'DN150x150': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN150x150"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN150x150"),
+    },
+    'DN200x200': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN200x200"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN200x200"),
+    },
+    'DN250x250': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN250x250"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN250x250"),
+    },
+    'DN300x300': {
+        'EC002 - Ductile Iron Coupling': ("SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union", "DN300x300"),
+        'EC002NG - RAPID S NG Coupling': ("SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union", "DN300x300"),
+    },
+    'DN400x400': {
+        None: ("SGPAMUK_ES_High Performance Coupling Stainless Steel_EC002HP&EC002HP-G_Union", "DN400x400_EC002HP"),
+    },
+    'DN500x500': {
+        None: ("SGPAMUK_ES_High Performance Coupling Stainless Steel_EC002HP&EC002HP-G_Union", "DN500x500_EC002HP"),
+    },
+    'DN600x600': {
+        None: ("SGPAMUK_ES_High Performance Coupling Stainless Steel_EC002HP&EC002HP-G_Union", "DN600x600_EC002HP"),
+    }
+}
+
+def get_family_and_type(type_name, selected_coupling):
+    """Retrieve family name and type based on the type name and selected coupling."""
+    family_data = coupling_mapping.get(type_name)
+    if family_data:
+        return family_data.get(selected_coupling) or family_data.get(None)
+    return None
+
+# Define mapping for the coupling family based on description parameter
+description_mapping = {
+    'Access Pipe Round Door': {
+        'EC002 - Ductile Iron Coupling': "SGPAMUK_ES_Access Pipe Round Door_AF014_DI",
+        'EC002NG - RAPID S NG Coupling': "SGPAMUK_ES_Access Pipe Round Door_AF014_NG",
+    },
+    'Long Radius Bend': {
+        'EC002 - Ductile Iron Coupling': "SGPAMUK_ES_Long Radius Bend_EF02L_DI",
+        'EC002NG - RAPID S NG Coupling': "SGPAMUK_ES_Long Radius Bend_EF02L_DI",
+    }
+}
+
+def get_family(description_param, selected_coupling):
+    """Retrieve family name based on the description parameter and selected coupling."""
+    family_data = description_mapping.get(description_param)
+    if family_data:
+        return family_data.get(selected_coupling) or family_data.get(None)
+    return None
+
+
 # Main logic
 try:
     # Loop until elements are selected
@@ -511,14 +583,12 @@ try:
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Venting Branch Interconnecting_EF013_NG"                                         
                 
+                # Only perform mapping if description matches
                 elif "Metallic Coupling" in description_param:
-                    if selected_coupling == 'EC002 - Ductile Iron Coupling':
-                        family_name = "SGPAMUK_ES_Two-Piece Ductile Iron Coupling_EC002_Union"
-                    elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
-                        family_name = "SGPAMUK_ES_RAPID S NG Coupling_EC002NG_Union"   
-                                        
-                elif "EN 12056 Calculation Connector" in description_param:
-                    family_name = "SGPAMUK_ES_EN 12056 Calculation Connector"
+                    result = get_family_and_type(type_name, selected_coupling)
+                    if result:
+                        family_name, type_name = result
+                
                 # Pipe Accessories
                 elif "Offset" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
