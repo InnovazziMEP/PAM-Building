@@ -273,7 +273,7 @@ def get_family_and_type(type_name, selected_coupling):
         return family_data.get(selected_coupling) or family_data.get(None)
     return None
 
-# Define mapping for the coupling family based on description parameter
+# Define mapping for the coupling family based on selected coupling and description parameter
 description_mapping = {
     'Access Pipe Round Door': {
         'EC002 - Ductile Iron Coupling': "SGPAMUK_ES_Access Pipe Round Door_AF014_DI",
@@ -464,6 +464,7 @@ try:
                         family_name = "SGPAMUK_ES_Long Tail Corner Branch_EF036_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Corner Branch_EF036_NG"
+                
                 elif "Long Tail Double Boss with Bosses Opposed at 88º" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Double Boss_EF091LT_DI"
@@ -474,6 +475,7 @@ try:
                         family_name = "SGPAMUK_ES_Long Tail Double Boss_EF092LT_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Double Boss_EF092LT_NG"
+                
                 elif "Long Tail Single Boss at 88º" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Single Boss_EF090LT_DI"
@@ -504,11 +506,13 @@ try:
                         family_name = "SGPAMUK_ES_Movement Connector_EF058_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Movement Connector_EF058_NG"
+                
                 elif "Rodding Branch" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Rodding Branch_EF009_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Rodding Branch_EF009_NG"
+                
                 # Determine family based on description and diameter
                 elif "Short Radius Bend" in description_param and converted_instance_diameter_param_value > 300:
                     family_name = "SGPAMUK_ES_Bend_EF002_HP"
@@ -527,11 +531,13 @@ try:
                         family_name = "SGPAMUK_ES_Single Boss_EF090T_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Single Boss_EF090T_NG"
+                
                 elif "Single Branch Long Tail Radius Curve" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Branch Long Tail Radius Curve_EF096_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Single Branch Long Tail Radius Curve_EF096_NG"
+                
                 elif "Single Branch with Radius Curve" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Branch Radius Curve_AF06R_DI"
@@ -597,7 +603,7 @@ try:
                         family_name = "SGPAMUK_ES_Offset_EF024_NG"                        
                 elif "Roof Connector for Asphalts" in description_param:
                     family_name = "SGPAMUK_ES_Roof Connector For Asphalts_EF073"
-                elif "Roof Connector for Asphalts" in description_param:
+                elif "Roof Penetration Flange" in description_param:
                     family_name = "SGPAMUK_ES_Roof Penetration Flange with Gasket_EF079"
                 elif "Strap-On Boss" in description_param:
                     family_name = "SGPAMUK_ES_Strap-On-Boss_EF133"
@@ -606,12 +612,12 @@ try:
                         family_name = "SGPAMUK_ES_Trap Branch_EF080_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Trap Branch_EF080_NG" 
-                elif "Trap Plain" in description_param:
+                elif description_param == "Trap Plain":
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Trap Plain Branch_EF034_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Trap Plain Branch_EF034_NG" 
-                elif "Trap Plain With Access Bottom" in description_param:
+                elif description_param == "Trap Plain With Access Bottom":
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Trap Plain With Access Bottom_EF037_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
