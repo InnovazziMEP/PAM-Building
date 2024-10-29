@@ -465,12 +465,12 @@ try:
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Corner Branch_EF036_NG"
                 
-                elif "Long Tail Double Boss with Bosses Opposed at 88º" in description_param:
+                elif "Long Tail Double Boss - Bosses Opposed at 88º" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Double Boss_EF091LT_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Double Boss_EF091LT_NG"
-                elif "Long Tail Double Boss with Bosses at 90º" in description_param:
+                elif "Long Tail Double Boss - Bosses at 90º" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Long Tail Double Boss_EF092LT_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
@@ -530,14 +530,12 @@ try:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Boss_EF090T_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
-                        family_name = "SGPAMUK_ES_Single Boss_EF090T_NG"
-                
+                        family_name = "SGPAMUK_ES_Single Boss_EF090T_NG"               
                 elif "Single Branch Long Tail Radius Curve" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Branch Long Tail Radius Curve_EF096_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
-                        family_name = "SGPAMUK_ES_Single Branch Long Tail Radius Curve_EF096_NG"
-                
+                        family_name = "SGPAMUK_ES_Single Branch Long Tail Radius Curve_EF096_NG"               
                 elif "Single Branch with Radius Curve" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Single Branch Radius Curve_AF06R_DI"
@@ -566,6 +564,8 @@ try:
                         family_name = "SGPAMUK_ES_Stench Trap_EF081_DI"
                     elif selected_coupling == 'EC002NG - RAPID S NG Coupling':
                         family_name = "SGPAMUK_ES_Stench Trap_EF081_NG"
+                elif "Strap-On Boss" in description_param:
+                    family_name = "SGPAMUK_ES_Strap-On-Boss_EF133"                
                 elif "Taper Pipe" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Taper Pipe_EF028_DI"
@@ -605,8 +605,6 @@ try:
                     family_name = "SGPAMUK_ES_Roof Connector For Asphalts_EF073"
                 elif "Roof Penetration Flange" in description_param:
                     family_name = "SGPAMUK_ES_Roof Penetration Flange with Gasket_EF079"
-                elif "Strap-On Boss" in description_param:
-                    family_name = "SGPAMUK_ES_Strap-On-Boss_EF133"
                 elif "Branch Trap" in description_param:
                     if selected_coupling == 'EC002 - Ductile Iron Coupling':
                         family_name = "SGPAMUK_ES_Trap Branch_EF080_DI"
